@@ -30,6 +30,18 @@ app.get("/api/persons", (request, response) => {
   response.json(phoneBook);
 });
 
+app.get("/api/persons/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const person = phoneBook.find((person) => person.id === id);
+
+  if (!person) {
+    console.log("no valid person");
+    return response.status(400).send("Invalid ID");
+  }
+
+  response.json(person);
+});
+
 app.get("/info", (request, response) => {
   const text = `Phonebook has info for ${phoneBook.length} people`;
   const time = Date(Date.now());
