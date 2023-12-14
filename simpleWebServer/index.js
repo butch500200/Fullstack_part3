@@ -54,7 +54,7 @@ app.delete("/api/notes/:id", (request, response) => {
 
 app.post("/api/notes", (request, response) => {
   const newNote = request.body;
-  if (!newNote.content) {
+  if (!newNote.conte) {
     return response.status(400).json({
       error: "content missing",
     });
