@@ -7,17 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build:ui" : "rm -rf dist && cd /c/Users/joeyb/Downloads/\"React full stack learning\"/Fullstack_part2/phonebook/ && npm run build && cp -r dist /c/Users/joeyb/Downloads/\"React full stack learning\"/Fullstack_part3/phonebookBackend && cd /c/Users/joeyb/Downloads/\"React full stack learning\"/Fullstack_part3/phonebookBackend",
-    "deploy" : "fly deploy",
-    "deploy:full": "npm run build:ui && npm run deploy",    
+    "build:ui": "rm -rf dist && cd /c/Users/joeyb/Downloads/\"React full stack learning\"/Fullstack_part2/phonebook/ && npm run build && cp -r dist /c/Users/joeyb/Downloads/\"React full stack learning\"/Fullstack_part3/phonebookBackend && cd /c/Users/joeyb/Downloads/\"React full stack learning\"/Fullstack_part3/phonebookBackend",
+    "deploy": "fly deploy",
+    "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs",
-    "testing" : "cd .."
+    "testing": "cd .."
   },
   "author": "Joseph Cassidy",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.3",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.2"
   },
