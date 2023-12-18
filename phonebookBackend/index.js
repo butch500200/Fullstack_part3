@@ -55,7 +55,7 @@ app.get("/api/persons", (request, response) => {
     // display phone book
 
     response.json(people);
-    mongoose.connection.close();
+    //mongoose.connection.close();
   });
 });
 
@@ -77,6 +77,7 @@ app.get("/api/persons/:id", (request, response, next) => {
       } else {
         response.status(404).end();
       }
+      //mongoose.connection.close();
     })
     .catch((error) => next(error));
 });
@@ -94,6 +95,7 @@ app.delete("/api/persons/:id", (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
     .then((result) => {
       response.status(204).end();
+      //mongoose.connection.close();
     })
     .catch((error) => next(error));
 });
