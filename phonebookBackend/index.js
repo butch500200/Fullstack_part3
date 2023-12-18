@@ -61,12 +61,14 @@ app.get("/api/persons/:id", (request, response, next) => {
 });
 
 app.get("/info", (request, response) => {
-  const text = `Phonebook has info for ${phoneBook.length} people`;
-  const time = Date(Date.now());
+  Person.countDocuments({}).then((result) => {
+    const time = Date(Date.now());
+    console.log(result);
 
-  const responseData = `${text} <br/> ${time}`;
+    const responseData = `Phonebook has info for ${result} people <br/> ${time}`;
 
-  response.status(200).send(responseData);
+    response.status(200).send(responseData);
+  });
 });
 
 app.delete("/api/persons/:id", (request, response, next) => {
