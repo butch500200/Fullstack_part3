@@ -1,6 +1,10 @@
+require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
 var morgan = require("morgan");
 const cors = require("cors");
+const Person = require("./models/person");
+
 const app = express();
 
 app.use(express.json());
@@ -46,21 +50,25 @@ function getRandomInt(max) {
 const generateId = () => {
   return getRandomInt(1000000);
 };
-
+//get all people
 app.get("/api/persons", (request, response) => {
-  response.json(phoneBook);
+  Person.find({}).then((people) => {
+    // display phone book
+
+    response.json(people);
+    mongoose.connection.close();
+  });
 });
 
 app.get("/api/persons/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const person = phoneBook.find((person) => person.id === id);
-
-  if (!person) {
-    console.log("no valid person");
-    return response.status(400).send("Invalid ID");
-  }
-
-  response.json(person);
+  Person.findById(request.params.id)
+    .then((person) => {
+      response.json(person);
+    })
+    .catch((e) => {
+      console.log("error message", e.message);
+      return response.status(400).send("Invalid ID");
+    });
 });
 
 app.get("/info", (request, response) => {
@@ -83,20 +91,19 @@ app.post("/api/persons", (request, response) => {
   if (!person.name) {
     return response.status(400).send("Name missing");
   }
-  if (phoneBook.find((data) => data.name === person.name)) {
-    console.log("test");
-    return response.status(400).send("Name already present");
-  }
+  // if (phoneBook.find((data) => data.name === person.name)) {
+  //   console.log("test");
+  //   return response.status(400).send("Name already present");
+  // }
 
-  const newPerson = {
-    id: generateId(),
+  const newPerson = new Person({
     name: person.name,
-    number: person.number,
-  };
+    number: person.number || "",
+  });
 
-  phoneBook.push(newPerson);
-
-  response.json(newPerson);
+  newPerson.save().then((savedperson) => {
+    response.json(savedperson);
+  });
 });
 
 // const unknownEndpoint = (request, response) => {
