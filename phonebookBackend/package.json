@@ -11,7 +11,8 @@
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs",
-    "testing": "cd .."
+    "testing": "cd ..",
+    "lint": "eslint ."
   },
   "author": "Joseph Cassidy",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "nodemon": "^3.0.2"
   },
   "devDependencies": {
-    "@flydotio/dockerfile": "^0.4.11"
+    "@flydotio/dockerfile": "^0.4.11",
+    "eslint": "^8.56.0"
   }
 }
