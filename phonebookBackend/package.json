@@ -14,7 +14,7 @@
     "testing": "cd ..",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "prettier": "npx prettier . --check",
+    "prettier": "npx prettier \"**/*.js\" --check",
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix"
   },
