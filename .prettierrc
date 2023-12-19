@@ -1,7 +1,6 @@
 {
     "arrowParens": "always",
     "bracketSpacing": true,
-    "endOfLine": "lf",
     "htmlWhitespaceSensitivity": "css",
     "insertPragma": false,
     "singleAttributePerLine": false,
@@ -19,6 +18,6 @@
     "useTabs": false,
     "embeddedLanguageFormatting": "auto",
     "vueIndentScriptAndStyle": false,
-    "filepath": "c:\\Users\\joeyb\\Downloads\\React full stack learning\\Fullstack_part3\\phonebookBackend\\mongo.js",
-    "parser": "babel"
+    "parser": "babel",
+    "endOfLine": "lf"
   }

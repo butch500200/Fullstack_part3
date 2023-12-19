@@ -4,10 +4,9 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: 'eslint:recommended',
+  extends: ['eslint:recommended', 'prettier'],
   parserOptions: {
     ecmaVersion: 'latest',
-    prettier: 'latest',
   },
   rules: {
     indent: ['error', 2],
@@ -20,4 +19,5 @@ module.exports = {
     'arrow-spacing': ['error', { before: true, after: true }],
     'no-console': 0,
   },
+  plugins: ['prettier'],
 }
