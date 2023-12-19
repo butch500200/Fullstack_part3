@@ -12,7 +12,11 @@
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs",
     "testing": "cd ..",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "npx prettier . --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "format": "npm run prettier:fix && npm run lint:fix"
   },
   "author": "Joseph Cassidy",
   "license": "ISC",
@@ -27,6 +31,7 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.11",
-    "eslint": "^8.56.0"
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0"
   }
 }
