@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
     "build:ui": "rm -rf dist && cd /c/Users/joeyb/Downloads/\"React full stack learning\"/Fullstack_part2/phonebook/ && npm run build && cp -r dist /c/Users/joeyb/Downloads/\"React full stack learning\"/Fullstack_part3/phonebookBackend && cd /c/Users/joeyb/Downloads/\"React full stack learning\"/Fullstack_part3/phonebookBackend",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
@@ -22,8 +22,10 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jest": "^29.7.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
     "morgan": "^1.10.0",
@@ -34,6 +36,11 @@
     "@flydotio/dockerfile": "^0.4.11",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.0.1"
+    "eslint-plugin-prettier": "^5.0.1",
+    "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "globalTeardown": "./tests/teardown.js"
   }
 }

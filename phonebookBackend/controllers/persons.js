@@ -52,7 +52,7 @@ personRouter.post('/', (request, response, next) => {
   newPerson
     .save()
     .then((savedperson) => {
-      response.json(savedperson)
+      response.status(201).json(savedperson)
     })
     .catch((error) => next(error))
 })
