@@ -8,10 +8,11 @@ const Person = require('../models/person.js')
 
 beforeEach(async () => {
   await Person.deleteMany({})
-  let personObject = new Person(helper.initialPhonebook[0])
-  await personObject.save()
-  personObject = new Person(helper.initialPhonebook[1])
-  await personObject.save()
+
+  const personObjects = helper.initialPhonebook.map((p) => new Person(p))
+  const promiseArry = personObjects.map((p) => p.save())
+
+  await Promise.all(promiseArry)
 })
 
 test('all people are returned', async () => {
@@ -55,6 +56,29 @@ test('adding invalid name wont add', async () => {
   const phonebook = await helper.personsInDb()
 
   expect(phonebook).toHaveLength(helper.initialPhonebook.length)
+})
+
+test('getting one person', async () => {
+  const phonebookAtStart = await helper.personsInDb()
+  const firstPerson = await api
+    .get(`/api/persons/${phonebookAtStart[0].id}`)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+  expect(firstPerson.body).toEqual(phonebookAtStart[0])
+})
+
+test('deleting one person', async () => {
+  const phonebookAtStart = await helper.personsInDb()
+  const personToDelete = phonebookAtStart[0]
+  const firstPerson = await api
+    .delete(`/api/persons/${personToDelete.id}`)
+    .expect(204)
+
+  const phonebookAtEnd = await helper.personsInDb()
+  expect(phonebookAtEnd.length).toEqual(phonebookAtStart.length - 1)
+
+  const names = phonebookAtEnd.map((p) => p.name)
+  expect(names).not.toContain(firstPerson.name)
 })
 
 afterAll(async () => {

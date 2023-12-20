@@ -8,17 +8,13 @@ personRouter.get('/', (request, response) => {
   })
 })
 
-personRouter.get('/:id', (request, response, next) => {
-  Person.findById(request.params.id)
-    .then((person) => {
-      if (person) {
-        response.json(person)
-      } else {
-        response.status(404).end()
-      }
-      //mongoose.connection.close();
-    })
-    .catch((error) => next(error))
+personRouter.get('/:id', async (request, response) => {
+  const person = await Person.findById(request.params.id)
+  if (person) {
+    response.json(person)
+  } else {
+    response.status(404).end()
+  }
 })
 
 personRouter.get('/info', (request, response) => {
@@ -32,16 +28,12 @@ personRouter.get('/info', (request, response) => {
   })
 })
 
-personRouter.delete('/:id', (request, response, next) => {
-  Person.findByIdAndDelete(request.params.id)
-    .then(() => {
-      response.status(204).end()
-      //mongoose.connection.close();
-    })
-    .catch((error) => next(error))
+personRouter.delete('/:id', async (request, response) => {
+  await Person.findByIdAndDelete(request.params.id)
+  response.status(204).end()
 })
 
-personRouter.post('/', (request, response, next) => {
+personRouter.post('/', async (request, response) => {
   const person = request.body
 
   const newPerson = new Person({
@@ -49,12 +41,8 @@ personRouter.post('/', (request, response, next) => {
     number: person.number,
   })
 
-  newPerson
-    .save()
-    .then((savedperson) => {
-      response.status(201).json(savedperson)
-    })
-    .catch((error) => next(error))
+  const savedNote = await newPerson.save()
+  response.status(201).json(savedNote)
 })
 
 personRouter.put('/:id', (request, response, next) => {
